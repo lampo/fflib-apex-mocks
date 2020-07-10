@@ -28,6 +28,8 @@ Referenced Packages/
 .vscode/
 .history/
 
+build.properties
+/.idea/
 # Illuminated Cloud Related
 .idea/
 IlluminatedCloud
