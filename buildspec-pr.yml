@@ -14,13 +14,16 @@ phases:
       - yarn global add sfdx-cli
 
       # Install ADX
-      - yum update -y && yum install -y gcc-c++ # ADX requires a few different c++ libraries
+      # - yum update -y && yum install -y gcc-c++ # ADX requires a few different c++ libraries
       - wget https://dx.appirio.com/downloads/adx-cli-linux.tar.gz -P ${ADX_DIR}
       - (cd ${ADX_DIR} && tar -xzf adx-cli-linux.tar.gz)
       - export PATH=$(pwd)/${ADX_DIR}:$PATH
+      - codebuild-breakpoint
 
   build:
     commands:
-      - codebuild-breakpoint
-      - sfdx --version
-      - adx --version
+      - gcc --version
+      # - sfdx --version
+      # - adx --version
+
+# objdump -x //lib64/libstdc++.so.6 | grep GLIBCXX_3.4.26

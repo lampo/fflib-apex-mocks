@@ -1,5 +1,6 @@
 import rs from "rs-cdk";
 import hub from 'rs-cdk/accounts/hub';
+import * as codebuild from '@aws-cdk/aws-codebuild';
 import * as iam from '@aws-cdk/aws-iam';
 
 const app = new rs.core.App({
@@ -41,5 +42,6 @@ role.addToPolicy(new iam.PolicyStatement({
 
 new rs.cicd.PRBuild(stack, "PRBuild", {
     repo: app.repo,
-    role
+    role,
+    buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3
 });
