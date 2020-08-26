@@ -6,11 +6,9 @@ phases:
       nodejs: 10 # need this for adx installation
 
     commands:
-      - npm i -g yarn
-
       # Install SFDX CLI
       - yarn global add sfdx-cli
   build:
     commands:
-      - adx --version
       - sdx --version
+      - adx --version
