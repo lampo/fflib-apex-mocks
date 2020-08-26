@@ -10,5 +10,5 @@ phases:
       - yarn global add sfdx-cli
   build:
     commands:
-      - sdx --version
+      - sfdx --version
       - adx --version
