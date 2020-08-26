@@ -7,7 +7,7 @@ phases:
 
     commands:
       # Install SFDX CLI
-      - yarn global add sfdx-cli
+      - yarn global add sfdx-cli @appirio/salesforce
   build:
     commands:
       - sfdx --version
