@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@aws-cdk/core": "1.51.0",
-    "@aws-cdk/aws-codebuild": "1.51.0",
+    "@aws-cdk/aws-iam": "1.51.0",
     "rs-cdk": "^2.0.5"
   },
   "devDependencies": {
