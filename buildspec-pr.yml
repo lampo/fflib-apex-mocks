@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12 # need this for adx installation
+      nodejs: 10 # need this for adx installation
 
     commands:
       - npm i -g yarn
