@@ -7,16 +7,9 @@ phases:
 
     commands:
       - npm i -g yarn
-      - yum install wget
 
-      # Install SFDX (https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm#sfdx_setup_install_cli_linux)
-      - wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-      - mkdir sfdx
-      - tar xJf sfdx-linux-amd64.tar.xz -C sfdx --strip-components 1
-      - ./sfdx/install
-
-      # Install ADX
-      - yarn global add @appirio/dx
+      # Install SFDX CLI
+      - yarn global add sfdx-cli
   build:
     commands:
       - adx --version
