@@ -46,4 +46,5 @@ new rs.cicd.PRBuild(stack, "PRBuild", {
   repo: app.repo,
   role,
   buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
+  privileged: true
 });
