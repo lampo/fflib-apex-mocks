@@ -13,4 +13,4 @@ phases:
   build:
     commands:
       - docker build -t ${CODEBUILD_BUILD_ID} .
-      - docker run -it --rm ${CODEBUILD_BUILD_ID}
+      - docker run --rm ${CODEBUILD_BUILD_ID}
