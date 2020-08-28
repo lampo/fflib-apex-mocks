@@ -34,17 +34,18 @@ role.addToPolicy(new iam.PolicyStatement({
 
 role.addToPolicy(new iam.PolicyStatement({
     actions: [
-        "ssm:GetParameter*"
+        "ssm:GetParameter*",
+        "secretsmanager:GetSecretValue"
     ],
     resources: [
-        `arn:aws:ssm:us-east-1:${hub.cicd.account}:parameter/salesforce/*`
+        `arn:aws:ssm:us-east-1:${hub.cicd.account}:parameter/salesforce/*`,
+        `arn:aws:secretsmanager:us-east-1:058238361356:secret:codebuild/docker-hub-credentials-xZIbrm`
     ]
 }))
 
 new rs.cicd.PRBuild(stack, "PRBuild", {
     repo: app.repo,
     role,
-    buildImage: codebuild.LinuxBuildImage.fromDockerRegistry('appirio/dx:3.0.1.191186', {
-        secretsManagerCredentials: secrets.Secret.fromSecretArn(stack, `DockerCredentials`, 'arn:aws:secretsmanager:us-east-1:058238361356:secret:codebuild/docker-hub-credentials-xZIbrm')
-    })
+    buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
+    privileged: true
 });

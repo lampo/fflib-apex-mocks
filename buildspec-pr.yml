@@ -1,7 +1,18 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    DOCKER_USERNAME: codebuild/docker-hub-credentials:username
+    DOCKER_PASSWORD: codebuild/docker-hub-credentials:password
+
 phases:
+  pre_build:
+    commands:
+      - docker login \
+        --username ${DOCKER_USERNAME} \
+        --password ${DOCKER_PASSWORD}
+
   build:
     commands:
-      - sfdx --version
-      - adx --version
+      - docker build -t ${CODEBUILD_BUILD_ID} .
+      - docker run -it --rm ${CODEBUILD_BUILD_ID}
