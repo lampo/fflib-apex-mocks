@@ -1,4 +1,5 @@
 set -e
 
-sfdx --version
-adx --version
+echo "SFDX Version: $(sfdx --version)"
+
+echo "ADX Version: $(adx --version)"
