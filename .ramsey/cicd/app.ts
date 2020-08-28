@@ -2,7 +2,6 @@ import rs from "rs-cdk";
 import hub from "rs-cdk/accounts/hub";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as iam from "@aws-cdk/aws-iam";
-import * as ecr from "@aws-cdk/aws-ecr";
 
 const app = new rs.core.App({
   billing: rs.core.BillingTags.GLOBAL,
@@ -35,22 +34,10 @@ role.addToPolicy(
 
 role.addToPolicy(
   new iam.PolicyStatement({
-    actions: ["ssm:GetParameter*"],
+    actions: ["ssm:GetParameter*", "secretsmanager:GetSecretValue"],
     resources: [
       `arn:aws:ssm:${stack.region}:${hub.cicd.account}:parameter/salesforce/*`,
-    ],
-  })
-);
-
-role.addToPolicy(
-  new iam.PolicyStatement({
-    actions: [
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:BatchGetImage",
-      "ecr:GetDownloadUrlForLayer",
-    ],
-    resources: [
-      `arn:aws:ecr:${stack.region}:${hub.cicd.account}:repository/crm-appirio-base:*`,
+      `arn:aws:secretsmanager:us-east-1:058238361356:secret:codebuild/docker-hub-credentials-xZIbrm`,
     ],
   })
 );
@@ -58,12 +45,5 @@ role.addToPolicy(
 new rs.cicd.PRBuild(stack, "PRBuild", {
   repo: app.repo,
   role,
-  buildImage: codebuild.LinuxBuildImage.fromEcrRepository(
-    ecr.Repository.fromRepositoryName(
-      stack,
-      `AppirioBaseRepo`,
-      "crm-appirio-base"
-    ),
-    "7"
-  ),
+  buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
 });
