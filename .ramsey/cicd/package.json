@@ -4,13 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@aws-cdk/core": "1.51.0",
-    "@aws-cdk/aws-iam": "1.51.0",
     "@aws-cdk/aws-codebuild": "1.51.0",
     "@aws-cdk/aws-ecr": "1.51.0",
+    "@aws-cdk/aws-iam": "1.51.0",
+    "@aws-cdk/core": "1.51.0",
     "rs-cdk": "^2.0.5"
   },
   "devDependencies": {
+    "@types/node": "^14.6.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   }
