@@ -44,6 +44,6 @@ new rs.cicd.PRBuild(stack, "PRBuild", {
     repo: app.repo,
     role,
     buildImage: codebuild.LinuxBuildImage.fromEcrRepository(
-        ecr.Repository.fromRepositoryName(stack, `AppirioBaseRepo`, 'crm-appirio-base')
+        ecr.Repository.fromRepositoryName(stack, `AppirioBaseRepo`, 'crm-appirio-base:7')
     )
 });
