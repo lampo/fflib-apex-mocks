@@ -8,9 +8,7 @@ env:
 phases:
   pre_build:
     commands:
-      - docker login \
-        --username ${DOCKER_USERNAME} \
-        --password ${DOCKER_PASSWORD}
+      - docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
 
   build:
     commands:
