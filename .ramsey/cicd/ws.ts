@@ -94,7 +94,7 @@ export class Ws extends cdk.Stack {
       source: app.repo.createCodeBuildSource({
         webhookFilters: [
           codebuild.FilterGroup.inEventOf(codebuild.EventAction.PUSH)
-            .andBranchIs("cicd")
+            .andBranchIs("master")
             .andFilePathIs(`${target}/*`),
         ],
       }),
@@ -105,8 +105,7 @@ export class Ws extends cdk.Stack {
             commands: [
               `cd ${target}`,
               "yarn", // Install Dependencies
-              deployCommand.join(" "),
-              "echo 'done'"
+              deployCommand.join(" ")
             ],
           },
         },
