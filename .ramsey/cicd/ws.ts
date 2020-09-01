@@ -57,10 +57,16 @@ export class Ws extends cdk.Stack {
 
     cicdDeploymentRole.addToPolicy(
       new iam.PolicyStatement({
-        actions: ["cloudformation:CreateStack", "cloudformation:UpdateStack"],
-        resources: [
-          `arn:aws:cloudformation:${this.region}:${this.account}:stack/${app.repo.name}--cicd`,
+        actions: [
+          "cloudformation:CreateStack",
+          "cloudformation:UpdateStack",
+          "cloudformation:GetTemplate",
         ],
+        resources: [
+          `arn:aws:cloudformation:${this.region}:${this.account}:stack/${app.repo.name}-cicd`,
+          `arn:aws:cloudformation:${this.region}:${this.account}:stack/${app.repo.name}-cicd/*`,
+        ],
+        // TODO: add condition on role passed
       })
     );
     cicdDeploymentRole.addToPolicy(

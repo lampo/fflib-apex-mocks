@@ -1,4 +1,5 @@
 import rs from "rs-cdk";
+import * as cdk from '@aws-cdk/core'
 import hub from "rs-cdk/accounts/hub";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as iam from "@aws-cdk/aws-iam";
@@ -12,6 +13,8 @@ const app = new rs.core.App({
 const stack = new rs.core.Stack(app, `${app.repo.name}-cicd`, {
   env: hub.cicd,
 });
+
+cdk.Tag.add(stack, 'group', 'cicd');
 
 // this will eventually move
 const role = new iam.Role(stack, "BuildRole", {
