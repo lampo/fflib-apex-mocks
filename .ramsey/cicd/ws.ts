@@ -63,6 +63,12 @@ export class Ws extends cdk.Stack {
         ],
       })
     );
+    cicdDeploymentRole.addToPolicy(
+      new iam.PolicyStatement({
+        actions: ["cloudformation:DescribeStacks"],
+        resources: [`*`],
+      })
+    );
     cicdRole.grantPassRole(cicdDeploymentRole);
 
     const deployCommand = [
