@@ -1,7 +1,10 @@
 import rs from "rs-cdk";
+import * as cdk from '@aws-cdk/core'
 import hub from "rs-cdk/accounts/hub";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as iam from "@aws-cdk/aws-iam";
+import { Ws } from './ws';
+import { Test } from './test';
 
 const app = new rs.core.App({
   billing: rs.core.BillingTags.GLOBAL,
@@ -12,9 +15,11 @@ const stack = new rs.core.Stack(app, `${app.repo.name}-cicd`, {
   env: hub.cicd,
 });
 
+cdk.Tag.add(stack, 'group', 'cicd');
+
 // this will eventually move
 const role = new iam.Role(stack, "BuildRole", {
-  assumedBy: new iam.ServicePrincipal("codebuild.amazonaws.com"),
+  assumedBy: new iam.ServicePrincipal("codebuilds.amazonaws.com"),
 });
 
 role.addToPolicy(
@@ -47,4 +52,18 @@ new rs.cicd.PRBuild(stack, "PRBuild", {
   role,
   buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
   privileged: true
+});
+
+/**
+ * Everything below this would eventually live separately from this project
+ * it is only hear while I test it
+ */
+new Ws(stack, `${app.repo.name}-ws-things`, {
+    app,
+    env: hub.cicd,
+});
+
+new Test(stack, `${app.repo.name}-ws-test`, {
+  app,
+  env: hub.cicd,
 });

@@ -1,0 +1,2 @@
+# Only allow CodeBuild Service roles to be created
+AWS::IAM::Role AssumeRolePolicyDocument.Statement.*.Principal.Service == "codebuild.amazonaws.com"
