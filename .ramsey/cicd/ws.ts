@@ -60,6 +60,14 @@ export class Ws extends cdk.Stack {
             ]
         }));
         cicdRole.grantPassRole(cicdDeploymentRole);
+
+        const deployCommand = [
+            'npx',
+            'cdk',
+            'deploy',
+            `${app.repo.name}-cicd`,
+            `--role-arn ${cicdRole.roleArn}`
+        ]
         
         new codebuild.Project(this, `${app.repo.name}CicdDeployment`, {
             projectName: `${app.repo.name}-cicd`,
@@ -79,7 +87,7 @@ export class Ws extends cdk.Stack {
                         commands: [
                             'cd .ramsey/cicd',
                             'yarn',
-                            `npx cdk synth ${app.repo.name}-cicd`
+                            deployCommand.join(' ')
                         ]
                     }
                 }
