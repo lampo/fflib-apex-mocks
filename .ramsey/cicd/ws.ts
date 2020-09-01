@@ -61,6 +61,7 @@ export class Ws extends cdk.Stack {
           "cloudformation:CreateStack",
           "cloudformation:UpdateStack",
           "cloudformation:GetTemplate",
+          "cloudformation:CreateChangeSet"
         ],
         resources: [
           `arn:aws:cloudformation:${this.region}:${this.account}:stack/${app.repo.name}-cicd`,
@@ -105,6 +106,7 @@ export class Ws extends cdk.Stack {
               `cd ${target}`,
               "yarn", // Install Dependencies
               deployCommand.join(" "),
+              "echo 'done'"
             ],
           },
         },
